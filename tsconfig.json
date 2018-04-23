@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "jsx": "preserve",
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "*": [
+        "src/types/*"
+      ]
+    }
+  }
+}

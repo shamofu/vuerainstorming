@@ -1,0 +1,27 @@
+{
+  "name": "vuerainstorming",
+  "version": "0.0.0",
+  "description": "Brainstorming with Vue.",
+  "scripts": {
+    "start": "parcel src/index.html -p 1124 -d .parcel --open",
+    "build": "parcel build src/index.html --public-url ./ -d build --no-minify",
+    "lint": "tslint src/**/*.ts{,x}"
+  },
+  "author": "shamofu",
+  "license": "MIT",
+  "devDependencies": {
+    "@vue/component-compiler-utils": "^1.0.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-vue": "^2.0.2",
+    "npm-run-all": "^4.1.2",
+    "parcel-bundler": "^1.7.1",
+    "tslint": "^5.9.1",
+    "typescript": "^2.8.1",
+    "vue": "^2.5.16",
+    "vue-hot-reload-api": "^2.3.0",
+    "vue-router": "^3.0.1",
+    "vue-template-compiler": "^2.5.16",
+    "vuex": "^3.0.1"
+  }
+}

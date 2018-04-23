@@ -1,0 +1,10 @@
+# output
+/build
+/.cache
+/.parcel
+
+# dependencies
+/node_modules
+
+# logs
+*.log

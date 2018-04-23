@@ -1,0 +1,26 @@
+language: node_js
+node_js: lts/*
+os: osx
+osx_image: xcode9.2
+env:
+  global:
+    - APP_NAME=vuerainstorming
+before_install:
+  - brew update
+install:
+  - yarn install
+script:
+  - yarn test
+before_deploy:
+  - yarn build
+  - cd build && zip -9 -ry ${APP_NAME}.zip * -x *.map && cd -
+deploy:
+  provider: releases
+  api_key:
+    secure: O/ooK6e+W9VwED3XxWQrM2Iy6EoRNlpLLMuMupH78eEdOrNHTrBzVE/E+KdFs9uyBzhnit6JMSZccxdGRyWH5ctaM5MbvtrYxM28q172O8Tv7w8lBXtaZU79gAoJF+oiMrhqYc4s5mgMOXojcE41BcloYk4vukpwe2dgTXza3VRXGl0zxtY4gI66JZjhIeRd5EUFJViJJWCDMTxnPit0t7PJZXpVzJw2kCrsC6CnySJxoAwAKvFoSBZhB3W7vHHdKyHewJNH1UzeK6rd/BxytKhJ0GhglAj5XusgEWod+s2AnTSC4UFagrk6snmXbr8+YEsCNob7Yv1RZDfF2r5h+x5UzbrjCiiJCub+6HuL64tRojT2j9Z17uegTPMknKmHu3VhOMJw6iyqk1vGqkq72mLzAKPrfV1Nyf0J2ha81nKCudgvxsixHHyzySl6TceMRCJJ2BUgbkmsqaaH7MBzlW7TTn0IUalT4VSgxdggdZpb7Yr5u0QrUNHFrO5s8seFBPLV9RAabpHuWGGyikik0DheOFw6yJBHJA8aL7MKND+Tog3i394FjU2T5c9MgqFYw8ePntmiLLiPwgXfsmN0fM68R3BWN/n6OzcTQ8gvlCoJyGhqlQ9HSMmZRvdOtUepmR53jmD/1j/zCTzqsJzWuOFZzNIt25mTiZZZCor558Q=
+  file:
+    - ${APP_NAME}.zip
+  skip_cleanup: true
+  on:
+    tags: true
+    branch: master

@@ -6,15 +6,15 @@ export default new Vuex.Store({
     grabbedIndex: null,
     offset: { x: null, y: null },
     ideas: [
-      { id: 0, text: 'Theme 1', dependency: [], pos: { cx: 200, cy: 100 } },
-      { id: 1, text: 'Theme 2', dependency: [0], pos: { cx: 600, cy: 100 } }
+      { id: 0, text: 'Theme 1', dependency: 0, pos: { cx: 200, cy: 100 } },
+      { id: 1, text: 'Theme 2', dependency: 0, pos: { cx: 600, cy: 100 } }
     ]
   },
   getters: {
     getIdeaById: (state) => (id) => {
       return state.ideas.find((obj) => obj.id === id)
     },
-    getAvailableId: (state, getters) => {
+    availableId: (state, getters) => {
       for (let i = 1; i <= 2000; i++) {
         if (!getters.getIdeaById(i)) {
           return i
@@ -29,8 +29,16 @@ export default new Vuex.Store({
         id: payload.id,
         text: payload.text,
         dependency: payload.dependency,
-        pos: { cx: 0, cy: 0 }
+        pos: { cx: 400, cy: 400 }
       })
+    },
+    removeIdea(state, payload) {
+      state.ideas.forEach((obj, i) => {
+        if (obj.dependency === payload.id) {
+          state.ideas[i].dependency = obj.id
+        }
+      })
+      state.ideas = state.ideas.filter((obj) => obj.id !== payload.id)
     },
     resetGrabbedIndex(state) {
       state.grabbedIndex = null
@@ -51,25 +59,30 @@ export default new Vuex.Store({
         }
       })
     },
-    updateText(state, payload) {
+    updateIdea(state, payload) {
       state.ideas.forEach((obj, i) => {
         if (obj.id === payload.id) {
           state.ideas[i].text = payload.text
+          state.ideas[i].dependency = payload.dependency
         }
       })
     }
   },
   actions: {
     addIdea(context, payload) {
-      const id = context.getters.getAvailableId()
+      const id = context.getters.availableId
       if (id !== null) {
         context.commit('addIdea', {
           id,
           text: payload.text,
-          forwardId: payload.forwardId,
-          backwardId: payload.backwardId
+          dependency: payload.dependency
         })
       }
+    },
+    removeIdea(context, payload) {
+      context.commit('removeIdea', {
+        id: payload.id
+      })
     },
     resetGrabbedIndex(context) {
       context.commit('resetGrabbedIndex')
@@ -86,8 +99,8 @@ export default new Vuex.Store({
     updatePos(context, payload) {
       context.commit('updatePos', { cx: payload.cx, cy: payload.cy })
     },
-    updateText(context, payload) {
-      context.commit('updateText', { id: payload.id, text: payload.text })
+    updateIdea(context, payload) {
+      context.commit('updateIdea', { id: payload.id, text: payload.text, dependency: payload.dependency })
     }
   }
 })

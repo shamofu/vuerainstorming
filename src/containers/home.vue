@@ -1,5 +1,5 @@
 <template>
-  <div width="100vw" height="100vh">
+  <div width="100vw" height="100vh" class="unselectable">
     <button @click.left="addIdea">Add idea</button>
     <button @click.left="removeIdea">Del idea</button>
     <svg
@@ -8,7 +8,7 @@
     >
       <g v-for="idea in ideas" :key="'arrow_' + idea.id">
         <line
-          stroke="gray" :x1="idea.pos.cx" :y1="idea.pos.cy"
+          stroke="gray" :x1="idea.pos.cx" :y1="idea.pos.cy" marker="url(#arrow)"
           :x2="getIdeaById(idea.dependency).pos.cx" :y2="getIdeaById(idea.dependency).pos.cy"
         />
       </g>
@@ -70,3 +70,13 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+</style>

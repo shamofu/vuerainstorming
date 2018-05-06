@@ -29,7 +29,7 @@ export default {
     updateIdea() {
       const text = prompt('Input what you come up with.', this.idea.text)
       const dependency = parseInt(prompt('Input parental ID.', this.idea.dependency))
-      if (text !== null) {
+      if (text !== null && this.$store.getters.getIdeaById(dependency) !== null) {
         this.$store.dispatch('updateIdea', { id: this.idea.id, text, dependency })
       }
     }

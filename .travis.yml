@@ -13,7 +13,7 @@ script:
   - yarn build
 before_deploy:
   - yarn build
-  - cd build && zip -9 -ry ${APP_NAME}.zip * -x *.map && cd -
+  - cd build && zip -9 -ry ${APP_NAME}.zip * -x *.map
 deploy:
   provider: releases
   api_key:
